@@ -167,6 +167,7 @@ class Chef
             archive.each_entry do |e|
               pathname = ::File.expand_path(e.pathname)
               if ::File.exist?(pathname)
+                next unless e.filetype == Archive::Entry::FILE
                 Chef::Log.trace("#{pathname} mtime is #{::File.mtime(pathname)} and archive is #{e.mtime}")
                 modified = true unless ::File.mtime(pathname) == e.mtime
               else
